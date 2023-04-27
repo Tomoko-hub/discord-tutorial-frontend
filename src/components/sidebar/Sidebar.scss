@@ -40,5 +40,26 @@
             justify-content: space-between;
             width: 300px;
         }
+
+        .sidebarChannels {
+            padding: 13px;
+            color: #ffffff;
+
+            .sidebarChannelsHeader {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 5px;
+
+                .sidebarHeader{
+                    display: flex;
+                }
+
+                .sidebarAddIcon {
+                    cursor: pointer;
+                }
+            }
+        }
+
     }
 }
