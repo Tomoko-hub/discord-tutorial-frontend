@@ -1,6 +1,5 @@
 import React from 'react'
 import "./ChatHeader.scss"
-import TagIcon from '@mui/icons-material/Tag';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
