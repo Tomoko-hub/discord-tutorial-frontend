@@ -5,6 +5,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import GifIcon from '@mui/icons-material/Gif';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import ChatMessage from './ChatMessage';
 
 const Home = () => {
   return (
@@ -13,7 +14,12 @@ const Home = () => {
       <ChatHeader />
       {/* ChatMessage */ }
       <div className="chatMessage">
-        chat message
+        <ChatMessage />
+        <ChatMessage />
+        <ChatMessage />
+        <ChatMessage />
+        <ChatMessage />
+        <ChatMessage />
       </div>
       {/* chatInput */ }
       <div className="chatInput">
@@ -34,7 +40,6 @@ const Home = () => {
           <SentimentSatisfiedAltIcon />
         </div>
       </div>
-      Chat
     </div>
   )
 }
