@@ -2,7 +2,7 @@
     display: flex;
     flex: 0.35;
     height: 100vh;
-    background-color: #33363d; //Todo:Home Component
+    //background-color: #33363d; //Todo:Home Component
 
     .sidebarLeft {
         display: flex;
@@ -31,6 +31,8 @@
 
     .sidebarRight {
         background-color: #2b2d33;
+        width: 300px;
+        position: relative;
 
         .sidebarTop {
             color: #ffffff;
@@ -38,7 +40,6 @@
             align-items: center;
             padding: 20px;
             justify-content: space-between;
-            width: 300px;
         }
 
         .sidebarChannels {
@@ -60,6 +61,47 @@
                 }
             }
         }
+
+        .sidebarFooter{
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 93%;
+            padding-bottom: 10px;
+            border-top: 1px solid #686a6e;
+            padding-top: 10px;
+            margin-left: -3px;
+
+            .sidebarAccount {
+                display: flex;
+                align-items: center;
+    
+                img {
+                    width: 50px;
+                }
+
+                .accountName {
+                    margin-left: 5px;
+                }
+
+                h4 {
+                    font-weight: 500;
+                }
+
+                span {
+                    color: #686a6e;
+                }
+            }
+
+            .sidebarVoice {
+                display: flex;
+                align-items: center;
+                color: #686a6e;
+            }
+        }
+
 
     }
 }
