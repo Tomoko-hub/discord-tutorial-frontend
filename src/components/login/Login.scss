@@ -17,9 +17,11 @@
 
     button {
         width: 200px;
+        height: 60px;
         background-color: #738abd;
         color: #eff2f5;
         font-weight: 800;
+        border-radius: 8px;
 
         &:hover {
             background-color:aqua;
