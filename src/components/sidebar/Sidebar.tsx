@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./Sidebar.scss"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
@@ -8,10 +8,22 @@ import HeadphonesIcon from '@mui/icons-material/Headphones';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { auth } from '../../firebase';
 import { useAppSelector } from '../../app/hooks';
+import { collection, query, db } from 'firebase/firestore/lite';
+import { onSnapshot } from "firebase/firestore";
 
 const Sidebar = () => {
 
     const user = useAppSelector((state)=> state.user);
+    const q = query(collection(db, "channels"));
+
+    useEffect(()=>{
+        onSnapshot(q,(querySnapshot)=>{
+            const result = [];
+            querySnapshot.docs.forEach((doc)=>{
+                console.log(doc);
+            })
+    },[]); //空の引数は最初の一回のみが発火のタイミング
+
   return (
     <div className='sidebar'>
         {/* Sidebarleft*/ }
