@@ -6,10 +6,10 @@ import SidebarChannel from './SidebarChannel';
 import MicIcon from '@mui/icons-material/Mic';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { auth } from '../../firebase';
+import { auth,db } from '../../firebase';
 import { useAppSelector } from '../../app/hooks';
-import { collection, query, db } from 'firebase/firestore/lite';
-import { onSnapshot } from "firebase/firestore";
+//import { collection, query} from 'firebase/firestore/lite';
+import { onSnapshot,collection,query, QuerySnapshot } from "firebase/firestore";
 
 const Sidebar = () => {
 
@@ -17,12 +17,11 @@ const Sidebar = () => {
     const q = query(collection(db, "channels"));
 
     useEffect(()=>{
-        onSnapshot(q,(querySnapshot)=>{
-            const result = [];
-            querySnapshot.docs.forEach((doc)=>{
-                console.log(doc);
-            })
-    },[]); //空の引数は最初の一回のみが発火のタイミング
+        onSnapshot(q,(QuerySnapshot)=>{
+            const channelsResults=[];
+            QuerySnapshot.docs.forEach((doc)=>console.log(doc));
+        });
+    },[]);
 
   return (
     <div className='sidebar'>
