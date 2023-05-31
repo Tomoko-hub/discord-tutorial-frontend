@@ -12,8 +12,8 @@ import { ErrorFallback } from './utils/ErrorFallback';
 
 function App() {
 
-  const user = useAppSelector((state)=>state.user);
-  console.log(user);
+  const user = useAppSelector((state)=>state.user.user);
+  //console.log(user);
 
   //const user = null;
 
