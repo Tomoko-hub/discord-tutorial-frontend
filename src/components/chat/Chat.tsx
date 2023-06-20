@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState} from 'react'
 import "./Chat.scss"
 import ChatHeader from './ChatHeader';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -7,49 +7,23 @@ import GifIcon from '@mui/icons-material/Gif';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import ChatMessage from './ChatMessage';
 import { useAppSelector } from '../../app/hooks';
-import { CollectionReference, DocumentData, addDoc, collection, serverTimestamp, DocumentReference, onSnapshot, Timestamp } from 'firebase/firestore';
+import { 
+  CollectionReference, 
+  DocumentData, 
+  addDoc, 
+  collection, 
+  serverTimestamp, 
+  DocumentReference, 
+ } from 'firebase/firestore';
 import { db } from '../../firebase';
-
-interface Messages {
-  timestamp:Timestamp;
-  message:string;
-  user:{
-    uid: string;
-        photo: string;
-        email: string;
-        displayName: string;
-  };
-}
+import useSubCollection from '../../hooks/useSubCollection';
 
 const Chat = () => {
   const [inputText, setInputText ] = useState<string>("");
-  const [messages, setMessages ] = useState<Messages[]>([]);
-  const channelName = useAppSelector((state)=>state.channel.channelName);
   const channelId = useAppSelector((state)=>state.channel.channelId);
+  const channelName = useAppSelector((state)=>state.channel.channelName);
   const user = useAppSelector((state)=>state.user.user);
-
-  useEffect(()=>{
-
-    let collectionRef = collection(
-      db,
-      "channels", 
-      String(channelId),
-      "messages"
-      );
-      //firebaseリアルタイムでデータベースを更新するときはonSnapshot
-    onSnapshot(collectionRef,(snapshot)=>{
-      let results:Messages[]=[];
-      snapshot.docs.forEach((doc)=>{
-        results.push({
-          message:doc.data().message,
-          timestamp:doc.data().timestamp,
-          user:doc.data().user,
-        });
-      });
-      setMessages(results);
-      console.log(results);
-    });
-  },[channelId]);
+  const {subDocuments:messages}=useSubCollection("channels","messages");
 
   const sendMessage = async(event:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
     event.preventDefault();
@@ -60,13 +34,13 @@ const Chat = () => {
       String(channelId), 
       "messages");
 
-      const docRef:DocumentReference<DocumentData>=await addDoc(collectionRef, {
-        message: inputText,
-        timestamp: serverTimestamp(),
-        user: user,
-      });
+    const docRef:DocumentReference<DocumentData>=await addDoc(collectionRef, {
+      message: inputText,
+      timestamp: serverTimestamp(),
+      user: user,
+    });
 
-      console.log(docRef);
+    setInputText("");
   }
 
   return (
@@ -87,12 +61,13 @@ const Chat = () => {
       {/* chatInput */ }
       <div className="chatInput">
         <AddCircleOutlineIcon />
-        <form action="">
+        <form>
           <input 
             type="text"
             placeholder='#Send message to Tomoko'
             onChange={(event:React.ChangeEvent<HTMLInputElement>)=>setInputText(event.target.value)}
-           />
+            value={inputText}
+          />
           <button 
             type="submit"
             className='chatInputButton'
